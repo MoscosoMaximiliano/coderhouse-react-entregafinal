@@ -7,6 +7,9 @@ import logoImage from "../../images/logo.png"
 
 // eslint-disable-next-line react/prop-types
 const NavBar = ({itemCartNumber}) => {
+
+  
+
   return (
     <header className='flex justify-between align-middle items-center center p-2 bg-slate-800'>
       <Link route="/" style="text-center inline-table relative">
