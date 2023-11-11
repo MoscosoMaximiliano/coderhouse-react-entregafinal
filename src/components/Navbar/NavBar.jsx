@@ -2,29 +2,21 @@
 import CartWidget from "./CartWidget"
 import Link from "./Link"
 
-import logoImage from "../../images/logo.png"
+import logoImage from "../../assets/logo.png"
+import { Catalogue } from "./Catalogue"
 
 
 // eslint-disable-next-line react/prop-types
-const NavBar = ({itemCartNumber}) => {
-
-  
-
+const NavBar = () => {
   return (
-    <header className='flex justify-between align-middle items-center center p-2 bg-slate-800'>
+    <header className='flex items-center justify-between p-2 align-middle center bg-slate-800'>
       <Link route="/" style="text-center inline-table relative">
-        <img src={logoImage} alt='logo_page' className="cursor-pointer w-12 h-12"/>
-        </Link>
-      <nav className='flex-row gap-2 h-auto'>
-        <ul className="list-none h-auto">
-          <Link route="/category/currency">Currency</Link>
-          <Link route="/category/equipement">Equipment</Link>
-          <Link route="/about">About</Link>
-        </ul>
-      </nav>
+        <img src={logoImage} alt='logo_page' className="w-12 h-12 cursor-pointer"/>
+      </Link>
+      <Catalogue />
       <div className="flex align-middle">
-        <CartWidget itemsCartNumber={itemCartNumber}/>
-        <a href="#" className="py-5 px-7 bg-orange-300 text-black border-none rounded cursor-pointer transition-all delay-75 ease-linear hover:bg-orange-500 hover:-translate-y-1 hover:scale-110">
+        <CartWidget />
+        <a href="#" className="py-5 text-black transition-all ease-linear delay-75 bg-orange-300 border-none rounded cursor-pointer px-7 hover:bg-orange-500 hover:-translate-y-1 hover:scale-110">
           Contact me!
         </a>
       </div>
