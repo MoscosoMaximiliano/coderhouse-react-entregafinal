@@ -1,7 +1,9 @@
 import { useParams } from "react-router-dom"
-import DATA from "../products"
 import { useEffect, useState } from "react"
 import Item from "./Item"
+import { GetFilteredProducts, GetProducts } from "../services/firebase/firebaseConfig"
+
+
 
 // eslint-disable-next-line react/prop-types
 function ItemListContainer() {
@@ -10,22 +12,19 @@ function ItemListContainer() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-      setTimeout(() => {
         if (categoryID !== undefined) {
-          const filteredProducts = DATA.filter((item) => item.category === categoryID)
-            setProducts(filteredProducts)
+          GetFilteredProducts(categoryID).then(data => setProducts(data)).finally(() => setLoading(false))
         } else {
-          setProducts(DATA)
+          GetProducts().then(data => setProducts(data)).finally(() => setLoading(false))
         }
 
         setLoading(false)
-      }, 3000)
       
       
   }, [categoryID])
 
   return(
-    <div className="overflow-x-hidden mx-12 p-3 grid-cols-3 grid gap-10">
+    <div className="grid grid-cols-3 gap-10 p-3 mx-12 overflow-x-hidden">
       { loading ? ( <h1>Loading Products</h1> )
       : products.map((item) => {
         return(
