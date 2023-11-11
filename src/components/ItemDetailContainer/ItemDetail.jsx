@@ -1,8 +1,14 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
+import { Link, useParams } from "react-router-dom"
+import { CartContext } from "../provider/CartProvider"
+import { ItemQuantitySelector } from "./ItemQuantitySelector"
+import { GetDetailProduct } from "../../services/firebase/firebaseConfig"
 
-export const ItemDetail = (product) => {
+export const ItemDetail = () => {
+    const [product, setProduct] = useState({})
     const [quantity, setQuantity] = useState(0)
+    const {AddItemToCart} = useContext(CartContext)
+    const { id } = useParams()
 
     const handleQuantityIncrease = () => {        
         const result = quantity + 1
@@ -18,23 +24,25 @@ export const ItemDetail = (product) => {
         }
     }
 
+    useEffect(() => {
+        GetDetailProduct(id).then(data => setProduct(data))
+    }, [id])
+
+    const SendItemToCart = () => AddItemToCart(product, quantity)
+
     return(
         <div
-        className="p-6 bg-slate-500 flex flex-col max-w-sm rounded overflow-hidden">
+        className="flex flex-col max-w-sm p-6 overflow-hidden rounded bg-slate-500">
             <img src="" alt="IMAGE" className="w-full"/>
             <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2 text-center">{product.productName}</div>
+                <div className="mb-2 text-xl font-bold text-center">{product.productName}</div>
                 <p className="mb-5 wrap">{product.description}</p>
                 <p><b>Price</b>: ${product.price}</p>
                 <p><b>Stock</b>: {product.stock}</p>
             </div>
-            <div className="flex justify-center items-center">
-                <button className="rounded p-5 bg-orange-300" onClick={handleQuantityDecrease}>-</button>
-                <h1 className="px-2">{quantity}</h1>
-                <button className="rounded p-5 bg-orange-300" onClick={handleQuantityIncrease}>+</button>
-            </div>    
+            <ItemQuantitySelector increase={handleQuantityIncrease} decrease={handleQuantityDecrease} quantity={quantity}/>
             <p className="text-center"><b>Total Price</b>: ${product.price * quantity}</p>
-            <Link className="w-auto rounded-full bg-orange-300 items-center text-center p-2 my-2 mx-2" to={`/item/${product.id}`}>Add to cart</Link>
+            <Link className="items-center w-auto p-2 mx-2 my-2 text-center bg-orange-300 rounded-full" to={"/"} onClick={SendItemToCart}>Add to cart</Link>
         </div>
     )
 }
