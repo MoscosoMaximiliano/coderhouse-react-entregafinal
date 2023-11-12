@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {doc, getDocs, getDoc, setDoc, collection, query, where, getFirestore } from 'firebase/firestore' 
+import {doc, getDocs, getDoc, setDoc, collection, query, where, getFirestore, addDoc } from 'firebase/firestore' 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -55,7 +55,5 @@ export const GetDetailProduct = async (id) => {
 }
 
 export const InsertNewBuy = async (data) => {
-    await setDoc(doc(db, 'buyTickets'), data)
-
-    return true
+    return await addDoc(collection(db, 'paymentTicket'), data).then(({id}) => {return id})
 }

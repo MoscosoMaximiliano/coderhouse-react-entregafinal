@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import Item from "./Item"
-import { GetFilteredProducts, GetProducts } from "../services/firebase/firebaseConfig"
+import Item from "../Item"
+import { GetFilteredProducts, GetProducts } from "../../services/firebase/firebaseConfig"
 
 
 
 // eslint-disable-next-line react/prop-types
-function ItemListContainer() {
+function ItemListPage() {
   const {categoryID} = useParams()
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -17,10 +17,8 @@ function ItemListContainer() {
         } else {
           GetProducts().then(data => setProducts(data)).finally(() => setLoading(false))
         }
-
+        
         setLoading(false)
-      
-      
   }, [categoryID])
 
   return(
@@ -36,4 +34,4 @@ function ItemListContainer() {
   
 }
 
-export default ItemListContainer
+export default ItemListPage

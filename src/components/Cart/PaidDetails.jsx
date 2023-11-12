@@ -2,18 +2,16 @@ import { useContext } from "react"
 import { CartContext } from "../provider/CartProvider"
 import { AiFillDelete } from 'react-icons/ai'
 import { EmptyCart } from "./EmptyCart"
-import { Payment } from "./Payment"
+import { Link } from "react-router-dom"
 
 
 export const Cart = () => {
-  const {cart, RemoveItemFromCart, CartItemAmount} = useContext(CartContext)
-
-  const getTotalPrice = () => cart.reduce((accumulated, {price, quantity}) => accumulated + price * quantity, 0)
+  const {cart, RemoveItemFromCart, CartItemAmount, GetTotalPriceCart} = useContext(CartContext)
 
   const deleteItemHandler = (id) => RemoveItemFromCart(id)
 
   return (
-    // CartItemAmount() !== 0 ?
+    CartItemAmount() !== 0 ?
     <div className="flex flex-col justify-center m-2">
       {cart.map((item) => {
         return (
@@ -34,11 +32,14 @@ export const Cart = () => {
         )
       })}
       <div className="flex self-center justify-center py-4 my-3 text-black bg-orange-300 rounded w-60 ">
-        <h2 className="w-fit">The total is: ${getTotalPrice()}</h2>
+        <h2 className="w-fit">The total is: ${GetTotalPriceCart()}</h2>
       </div>
-      <Payment />
+
+      <Link className="items-center self-center w-2/12 p-5 text-center transition-all ease-linear delay-75 bg-orange-300 rounded hover:text-black hover:bg-orange-400" to={`/payment`}>
+        Go to payment page!
+      </Link>
     </div> 
-    // : <EmptyCart />
+    : <EmptyCart />
     
   )
   

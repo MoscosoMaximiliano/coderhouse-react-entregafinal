@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom'
 import DATA from '../../products'
 import { useEffect, useState } from 'react'
-import { ItemDetail } from './ItemDetail'
+import { ItemDetail } from '../ItemDetailContainer/ItemDetail'
 
-const ItemDetailContainer = () => {
+const ItemDetailPage = () => {
   const {id} = useParams()
 
   const [product, setProduct] = useState()
@@ -14,11 +14,11 @@ const ItemDetailContainer = () => {
   }, [id])
   
   return (
-    <div className='flex my-6 justify-center'>
+    <div className='flex justify-center my-6'>
       <ItemDetail {...product}/>
     </div>
       
   )
 }
 
-export default ItemDetailContainer
+export default ItemDetailPage

@@ -25,7 +25,7 @@ export const ItemDetail = () => {
     }
 
     useEffect(() => {
-        GetDetailProduct(id).then(data => setProduct(data))
+        GetDetailProduct(id).then(data => data.length !== 0 ? setProduct({id: id, ...data}) : setProduct(data))
     }, [id])
 
     const SendItemToCart = () => AddItemToCart(product, quantity)
@@ -42,7 +42,7 @@ export const ItemDetail = () => {
             </div>
             <ItemQuantitySelector increase={handleQuantityIncrease} decrease={handleQuantityDecrease} quantity={quantity}/>
             <p className="text-center"><b>Total Price</b>: ${product.price * quantity}</p>
-            <Link className="items-center w-auto p-2 mx-2 my-2 text-center bg-orange-300 rounded-full" to={"/"} onClick={SendItemToCart}>Add to cart</Link>
+            <Link className="items-center w-auto p-2 mx-2 my-2 text-center bg-orange-300 rounded-full hover:bg-orange-400" to={"/"} onClick={SendItemToCart}>Add to cart</Link>
         </div>
     )
 }

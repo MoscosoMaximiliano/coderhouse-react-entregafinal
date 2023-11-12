@@ -10,7 +10,6 @@ export const CartProvider = ({children}) => {
     const CartItemAmount = () => cart.length
 
     const AddItemToCart = (item, quantity) => {
-      //Reduce amount of stock
       const indexItem = IsInCart(item.id)
       if(indexItem !== -1) {
         let updateCart = [...cart] 
@@ -20,6 +19,8 @@ export const CartProvider = ({children}) => {
         setCart((prev) => [...prev, {...item, quantity: quantity}])
       }
     }
+
+    const GetTotalPriceCart = () => cart.reduce((accumulated, {price, quantity}) => accumulated + price * quantity, 0)
 
     const RemoveItemFromCart = (id) => {
       const updateCart = cart.filter((item) => item.id !== id)
@@ -37,7 +38,8 @@ export const CartProvider = ({children}) => {
       CartItemAmount, 
       AddItemToCart, 
       RemoveItemFromCart, 
-      ClearCart
+      ClearCart,
+      GetTotalPriceCart
       }
     } >
       {children}
