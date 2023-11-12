@@ -24,7 +24,7 @@ const PaymentPage = () => {
   return (
     <>
     {orderID === null ?
-      <div className="items-center w-auto w-full p-12 h-max">
+      <div className="items-center w-full p-12 h-max">
         <h1 className="self-center mb-12 text-center">Form&apos;s Payment</h1>
         <form action="" onSubmit={handleSubmit} className="flex flex-col items-center justify-center w-full gap-4">
           <input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} className="p-2 border border-orange-400 rounded"/>
