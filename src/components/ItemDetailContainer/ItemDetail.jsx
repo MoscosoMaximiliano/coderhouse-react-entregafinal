@@ -1,14 +1,12 @@
-import { useContext, useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { useContext, useState } from "react"
+import { Link } from "react-router-dom"
 import { CartContext } from "../provider/CartProvider"
 import { ItemQuantitySelector } from "./ItemQuantitySelector"
-import { GetDetailProduct } from "../../services/firebase/firebaseConfig"
 
-export const ItemDetail = () => {
-    const [product, setProduct] = useState({})
+
+export const ItemDetail = (product) => {
     const [quantity, setQuantity] = useState(0)
     const {AddItemToCart} = useContext(CartContext)
-    const { id } = useParams()
 
     const handleQuantityIncrease = () => {        
         const result = quantity + 1
@@ -23,10 +21,6 @@ export const ItemDetail = () => {
             setQuantity(result)
         }
     }
-
-    useEffect(() => {
-        GetDetailProduct(id).then(data => data.length !== 0 ? setProduct({id: id, ...data}) : setProduct(data))
-    }, [id])
 
     const SendItemToCart = () => AddItemToCart(product, quantity)
 
